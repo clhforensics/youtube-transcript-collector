@@ -1,118 +1,68 @@
+# YouTube Transcript Collector v1.3
 
-# YouTube Transcript Collector RC
+A beginner-friendly Python utility for collecting YouTube transcripts for personal research, archival, accessibility, and licensed-use workflows.
 
-A beginner-friendly tool that takes one or more YouTube URLs and returns transcript text or JSON.
+The application includes:
 
-## What is new in this release candidate
+- A local browser interface
+- A command-line interface
+- Single-video and batch collection
+- Plain text, timestamped text, JSON, SRT, and WebVTT output
+- Multiple preferred transcript languages
+- Per-video batch progress and failure recovery
+- Transcript search, copy, download, combined download, and retry tools
+- Automatic filename creation using available video metadata
+- Optional automatic saving to the local `output/` folder
+- Video-ID normalization to prevent duplicate collection from different YouTube URL forms
+- Automated tests for URL parsing and output formatting
 
-- Pulls transcript text from one URL or a full batch
-- Saves each result automatically
-- Includes video title, channel name, and published date when available
-- Web app uses your provided logo and a red/navy color system
-- Copy button for each transcript result
-- Simple local web interface and CLI
-- No API key required
+> **Important:** Users are responsible for YouTube/platform terms and publisher rights. Do not redistribute copyrighted content without permission.
 
-## Important disclaimer
+## Application folder
 
-Quick and dirty transcript extractor.
-
-**NOTE:** For personal research, archival, accessibility, and licensed-use workflows only; users are responsible for platform and publisher terms; **DO NOT** redistribute copyrighted content.
-
-## Project structure
+All application code is inside:
 
 ```text
 youtube-transcriber-cli-v5/
-├─ app/
-│  ├─ assets/
-│  │  └─ logo.png
-│  ├─ __init__.py
-│  ├─ cli.py
-│  ├─ transcriber.py
-│  └─ web.py
-├─ main.py
-├─ web_app.py
-├─ README.md
-└─ requirements.txt
 ```
 
-## First-time setup on Windows
-
-Open PowerShell in the project folder and run:
-
-```powershell
-python -m ensurepip --upgrade
-python -m pip install -r requirements.txt
-```
-
-## CLI usage
-
-One URL:
-
-```powershell
-python main.py "https://www.youtube.com/watch?v=GAxk62-9yYc"
-```
-
-Multiple URLs:
-
-```powershell
-python main.py "URL_1" "URL_2"
-```
-
-From a text file:
-
-```powershell
-python main.py --input-file urls.txt
-```
-
-JSON output:
-
-```powershell
-python main.py "https://www.youtube.com/watch?v=GAxk62-9yYc" --format json
-```
-
-Do not save files:
-
-```powershell
-python main.py "https://www.youtube.com/watch?v=GAxk62-9yYc" --no-save
-```
-
-### CLI output includes
-
-- Title
-- Channel name when available
-- Published date when available
-- Video ID
-- Saved file path
-
-Saved filenames now prefer:
+For installation, web-app instructions, CLI examples, and testing instructions, open:
 
 ```text
-YYYY-MM-DD - Channel Name - Video Title - VIDEOID.txt
+youtube-transcriber-cli-v5/README.md
 ```
 
-If any metadata is missing, the app falls back gracefully.
+## Quick start on Windows
 
-## Web app usage
-
-Start the web app:
+Open PowerShell inside `youtube-transcriber-cli-v5` and run:
 
 ```powershell
+python -m pip install -r requirements.txt
 python web_app.py
 ```
 
-Then open this in your browser:
+Then open:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-Paste one or many YouTube URLs, choose text or json, and click **Get transcripts**.
+## Version 1.3 highlights
 
-## Notes
+Version 1.3 keeps the same lightweight Python architecture while improving reliability and usability:
 
-- This tool only works when a YouTube transcript is available.
-- Some videos do not have captions or do not allow transcript retrieval.
-- Video metadata is fetched without an API key and may be partially unavailable for some videos.
-- When metadata cannot be found, transcript extraction still continues.
-- When a transcript cannot be retrieved, the app shows an error instead of crashing.
+- Strict YouTube hostname validation
+- Duplicate detection by normalized 11-character video ID
+- Timestamped transcript output
+- SRT and WebVTT subtitle export
+- Preferred language fallback
+- Available-language feedback when a requested language is missing
+- Per-video batch progress
+- Individual and combined downloads
+- Search across collected transcript results
+- Retry controls for failed videos
+- Shared output-file handling
+- Repository cleanup through `.gitignore`
+- Automated tests
+
+No API key is required by this application.
