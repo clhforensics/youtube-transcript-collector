@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import time
 from pathlib import Path
 
 from app.output import save_output
@@ -60,6 +61,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--skip-existing",
         action="store_true",
         help="Do not overwrite an existing transcript file.",
+    )
+    parser.add_argument(
+        "--delay",
+        type=float,
+        default=1.0,
+        help="Delay in seconds between batch requests",
     )
     return parser
 
@@ -144,5 +151,8 @@ def main() -> int:
                 )
                 print(f"Available transcript languages: {available}")
             print()
+
+        if index < len(inputs):
+            time.sleep(args.delay)
 
     return exit_code
