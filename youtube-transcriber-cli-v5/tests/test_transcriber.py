@@ -2,6 +2,7 @@ import pytest
 
 from app.transcriber import (
     Segment,
+    decode_json_escaped,
     extract_video_id,
     normalize_inputs,
     sanitize_filename,
@@ -59,3 +60,7 @@ def test_srt_and_vtt():
     assert "00:00:01,250 --> 00:00:03,750" in srt
     assert vtt.startswith("WEBVTT")
     assert "00:00:01.250 --> 00:00:03.750" in vtt
+
+
+def test_decode_json_escaped_non_ascii():
+    assert decode_json_escaped("caf\\u00e9") == "café"

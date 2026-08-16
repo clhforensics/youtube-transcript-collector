@@ -124,10 +124,7 @@ def choose_best_filename(result: dict[str, Any]) -> str:
 
 
 def decode_json_escaped(value: str) -> str:
-    try:
-        return bytes(value, "utf-8").decode("unicode_escape")
-    except Exception:
-        return value
+    return json.loads('"' + value + '"') if value else value
 
 
 def extract_metadata_from_html(page_html: str) -> dict[str, str | None]:
